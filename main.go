@@ -61,6 +61,8 @@ func main() {
 	}
 	foodCoord := coord{40, 20}
 
+	score := 0
+
 	quit := false
 	// handle kb input
 	nitro := false
@@ -136,6 +138,7 @@ func main() {
 
 		// collision with food
 		if snake.body[0].x == foodCoord.x && snake.body[0].y == foodCoord.y {
+			score += 1
 			// place new food
 			foodCoord = coord{rand.Int() % (w - 1), rand.Int() % (h - 1)}
 
@@ -143,6 +146,10 @@ func main() {
 				snake.body = append(snake.body, snake.body[len(snake.body)-1])
 			}
 		}
+
+		// show score
+		scr.moveCursor(coord{1, 1})
+		scr.drawf("SCORE: %v", score)
 
 		// draw snake
 		headCell := '0'
@@ -204,6 +211,10 @@ func (s *screen) render() {
 
 func (s *screen) draw(str string) {
 	fmt.Fprint(s.buf, str)
+}
+
+func (s *screen) drawf(str string, args ...any) { // TODO: change func name
+	fmt.Fprintf(s.buf, str, args...)
 }
 
 func (s *screen) setCell(ch rune, c coord) {
