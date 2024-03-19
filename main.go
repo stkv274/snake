@@ -152,11 +152,11 @@ func main() {
 		scr.drawf("SCORE: %v", score)
 
 		// draw snake
-		headCell := '0'
-		bodyCell := 'o'
+		headCell := '■'
+		bodyCell := '█'
 		if snake.dead {
 			headCell = 'X'
-			bodyCell = 'x'
+			bodyCell = '░'
 		}
 		for _, crd := range snake.body {
 			scr.setCell(bodyCell, crd)
@@ -165,7 +165,7 @@ func main() {
 		scr.setCell(headCell, snake.body[0])
 
 		// draw food
-		scr.setCell('+', foodCoord)
+		scr.setCell('■', foodCoord)
 
 		scr.render()
 
